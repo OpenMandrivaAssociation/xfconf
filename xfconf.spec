@@ -10,8 +10,8 @@ Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
-Source0:	%{name}-%{version}.tar.bz2
-BuildRequires:	libxfce4util-devel
+Source0:	http://www.xfce.org/archive/xfce-%{version}/src/%{name}-%{version}.tar.bz2
+BuildRequires:	libxfce4util-devel >= %{version}
 BuildRequires:	dbus-glib-devel
 BuildRequires:	gtk-doc
 BuildRequires:	perl(ExtUtils::Depends)
