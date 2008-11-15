@@ -1,4 +1,4 @@
-%define major 0
+%define major 2
 %define apiver 0
 %define libname %mklibname %{name} %{apiver} %{major}
 %define develname %mklibname %{name} -d
@@ -24,6 +24,7 @@ system for the Xfce graphical desktop environment.
 %package -n %{libname}
 Summary:	Main library for xfconf
 Group:		System/Libraries
+Obsoletes:	%{mklibname %{name} 0} < 4.5.92
 
 %description -n %{libname}
 Main library for the xfconf, a configuration
