@@ -14,6 +14,10 @@ Source0:	%{name}-%{version}.tar.bz2
 BuildRequires:	libxfce4util-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	gtk-doc
+BuildRequires:	perl(ExtUtils::Depends)
+BuildRequires:	perl(ExtUtils::PkgConfig)
+BuildRequires:	perl(Glib)
+BuildRequires:	perl-devel
 Requires:	%{libname} = %{version}-%{release}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
@@ -40,6 +44,14 @@ Provides:	lib%{name}-devel = %{version}-%{release}
 %description -n %{develname}
 Development files and headers for xfconf.
 
+%package -n perl-%{name}
+Summary:	Perl bindings for %{name}
+Group:		Development/Perl
+Requires:	%{libname} = %{version}-%{release}
+
+%description -n perl-%{name}
+Perl bindings for %{name}.
+
 %prep
 %setup -q
 
@@ -57,6 +69,10 @@ Development files and headers for xfconf.
 
 %makeinstall_std
 
+mkdir -p %{buildroot}%{_mandir}/man3
+
+mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_mandir}/man3
+
 %find_lang %{name}
 
 %clean
@@ -65,7 +81,6 @@ Development files and headers for xfconf.
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc AUTHORS NEWS ChangeLog
-%dir %{_sysconfdir}/xdg/xfce4/xfconf
 %{_bindir}/xfconf-query
 %{_bindir}/xfconfd
 %{_datadir}/dbus-1/services/org.xfce.Xfconf.service
@@ -81,3 +96,14 @@ Development files and headers for xfconf.
 %{_libdir}/libxfconf-0.la
 %{_libdir}/libxfconf-0.so
 %{_libdir}/pkgconfig/libxfconf-0.pc
+
+%files -n perl-%{name}
+%defattr(-,root,root)
+%dir %{perl_sitearch}/Xfce4
+%dir %{perl_sitearch}/Xfce4/Xfconf
+%dir %{perl_sitearch}/Xfce4/Xfconf/Install
+%dir %{perl_sitearch}/auto/Xfce4/Xfconf
+%{perl_sitearch}/Xfce4/*.pm
+%{perl_sitearch}/Xfce4/Xfconf/Install/*
+%{perl_sitearch}/auto/Xfce4/Xfconf/*.so
+%{_mandir}/man3/Xfce4::Xfconf.3pm.*
