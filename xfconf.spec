@@ -5,14 +5,15 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.5.91
-Release:	%mkrel 2
+Version:	4.5.92
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
 Source0:	%{name}-%{version}.tar.bz2
 BuildRequires:	libxfce4util-devel
 BuildRequires:	dbus-glib-devel
+BuildRequires:	gtk-doc
 Requires:	%{libname} = %{version}-%{release}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
@@ -44,7 +45,9 @@ Development files and headers for xfconf.
 %build
 %configure2_5x	\
 	--disable-static \
-	--enable-checks
+	--enable-checks \
+	--enable-gtk-doc \
+	--enable-perl-bindings
 
 %make
 
