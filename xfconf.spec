@@ -6,7 +6,7 @@
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
 Version:	4.5.92
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
@@ -73,6 +73,9 @@ mkdir -p %{buildroot}%{_mandir}/man3
 
 mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_mandir}/man3
 
+# dummy
+mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
+
 %find_lang %{name}
 
 %clean
@@ -81,6 +84,7 @@ mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_man
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc AUTHORS NEWS ChangeLog
+%dir %{_sysconfdir}/xdg/xfce4/xfconf
 %{_bindir}/xfconf-query
 %{_bindir}/xfconfd
 %{_datadir}/dbus-1/services/org.xfce.Xfconf.service
