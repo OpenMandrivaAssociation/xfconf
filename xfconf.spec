@@ -87,7 +87,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
 %doc AUTHORS NEWS ChangeLog
 %dir %{_sysconfdir}/xdg/xfce4/xfconf
 %{_bindir}/xfconf-query
-%{_bindir}/xfconfd
+%{_libdir}/xfconfd
 %{_datadir}/dbus-1/services/org.xfce.Xfconf.service
 %{_datadir}/gtk-doc/html/xfconf
 
