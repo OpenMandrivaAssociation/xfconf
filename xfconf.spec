@@ -5,8 +5,8 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.5.92
-Release:	%mkrel 3
+Version:	4.5.93
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
@@ -23,7 +23,7 @@ Requires:	dbus-x11
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
-Xfconf is a hierarchical (tree-like) configuration 
+Xfconf is a hierarchical (tree-like) configuration
 system for the Xfce graphical desktop environment.
 
 %package -n %{libname}
