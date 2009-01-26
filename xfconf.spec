@@ -5,7 +5,7 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.5.93
+Version:	4.5.99.1
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
