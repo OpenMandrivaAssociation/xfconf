@@ -5,13 +5,13 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.6.0
-Release:	%mkrel 2
+Version:	4.6.1
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
 Source0:	http://www.xfce.org/archive/xfce-%{version}/src/%{name}-%{version}.tar.bz2
-BuildRequires:	libxfce4util-devel >= %{version}
+BuildRequires:	libxfce4util-devel >= 4.6.0
 BuildRequires:	dbus-glib-devel
 BuildRequires:	gtk-doc
 BuildRequires:	perl(ExtUtils::Depends)
