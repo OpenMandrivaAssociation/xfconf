@@ -6,7 +6,7 @@
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
 Version:	4.6.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
@@ -29,6 +29,7 @@ system for the Xfce graphical desktop environment.
 %package -n %{libname}
 Summary:	Main library for xfconf
 Group:		System/Libraries
+Requires:	%{name} = %{version}-%{release}
 Obsoletes:	%{mklibname %{name} 0} < 4.5.92
 
 %description -n %{libname}
