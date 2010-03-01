@@ -6,7 +6,7 @@
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
 Version:	4.6.1
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
@@ -67,7 +67,7 @@ Perl bindings for %{name}.
 %build
 %configure2_5x	\
 	--disable-static \
-	--enable-checks \
+	--disable-checks \
 	--enable-gtk-doc \
 	--enable-perl-bindings
 
