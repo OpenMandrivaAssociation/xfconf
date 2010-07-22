@@ -6,7 +6,7 @@
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
 Version:	4.6.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
