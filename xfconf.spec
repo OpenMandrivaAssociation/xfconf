@@ -6,8 +6,8 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.6.2
-Release:	%mkrel 2
+Version:	4.7.3
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
@@ -96,7 +96,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
 %doc AUTHORS NEWS ChangeLog
 %dir %{_sysconfdir}/xdg/xfce4/xfconf
 %{_bindir}/xfconf-query
-%{_libdir}/xfconfd
+%{_libdir}/xfce4/%{name}/xfconfd
 %{_datadir}/dbus-1/services/org.xfce.Xfconf.service
 %{_datadir}/gtk-doc/html/xfconf
 
