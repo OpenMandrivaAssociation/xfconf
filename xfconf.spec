@@ -1,3 +1,4 @@
+%define url_ver %(echo %{version} | cut -c 1-3)
 %define major 2
 %define apiver 0
 %define libname %mklibname %{name} %{apiver} %{major}
@@ -10,7 +11,7 @@ Release:	%mkrel 2
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
-Source0:	http://www.xfce.org/archive/xfce-%{version}/src/%{name}-%{version}.tar.bz2
+Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/{name}-%{version}.tar.bz2
 BuildRequires:	libxfce4util-devel >= 4.6.0
 BuildRequires:	glib2-devel
 BuildRequires:	dbus-glib-devel
