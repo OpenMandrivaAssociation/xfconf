@@ -1,4 +1,4 @@
-%define url_ver %(echo %{version} | cut -c 1-3)
+%define url_ver %(echo %{version} | cut -d. -f1,2)
 %define major 2
 %define apiver 0
 %define libname %mklibname %{name} %{apiver} %{major}
@@ -6,7 +6,7 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.8.0
+Version:	4.8.1
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
@@ -23,7 +23,6 @@ BuildRequires:	perl(Glib::MakeHelper)
 BuildRequires:	perl(Glib)
 BuildRequires:	perl-devel
 BuildRequires:	gettext
-Requires:	%{libname} = %{version}-%{release}
 Requires:	dbus-x11
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
@@ -86,7 +85,7 @@ mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_man
 # dummy
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
 
-%find_lang %{name}
+%find_lang %{name} %{name}.lang
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -106,10 +105,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
 
 %files -n %{develname}
 %defattr(-,root,root)
-%{_includedir}/xfce4/xfconf-0
-%{_libdir}/libxfconf-0.la
-%{_libdir}/libxfconf-0.so
-%{_libdir}/pkgconfig/libxfconf-0.pc
+%{_includedir}/xfce4/xfconf-%{apiver}
+%{_libdir}/libxfconf-%{apiver}.so
+%{_libdir}/pkgconfig/libxfconf-%{apiver}.pc
 
 %files -n perl-%{name}
 %defattr(-,root,root)
