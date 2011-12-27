@@ -85,6 +85,9 @@ mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_man
 # dummy
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
 
+# (tpg) drop libtool files
+rm -f %{buildroot}%{_libdir}/*.la
+
 %find_lang %{name} %{name}.lang
 
 %clean
