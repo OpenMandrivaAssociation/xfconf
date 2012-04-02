@@ -6,16 +6,15 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.8.1
-Release:	2
+Version:	4.9.0
+Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
 Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
-BuildRequires:	libxfce4util-devel >= 4.6.0
+BuildRequires:	libxfce4util-devel >= 4.9.0
 BuildRequires:	glib2-devel
 BuildRequires:	dbus-glib-devel
-BuildRequires:	gtk-doc
 BuildRequires:	perl(ExtUtils::Depends)
 BuildRequires:	perl(ExtUtils::PkgConfig)
 BuildRequires:	perl(ExtUtils::MakeMaker)
@@ -74,7 +73,6 @@ Perl bindings for %{name}.
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %makeinstall_std
 
@@ -85,16 +83,10 @@ mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_man
 # dummy
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
 
-# (tpg) drop libtool files
-rm -f %{buildroot}%{_libdir}/*.la
 
 %find_lang %{name} %{name}.lang
 
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc AUTHORS NEWS ChangeLog
 %dir %{_sysconfdir}/xdg/xfce4/xfconf
 %{_bindir}/xfconf-query
@@ -103,17 +95,14 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_datadir}/gtk-doc/html/xfconf
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/*xfconf-%{apiver}.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %{_includedir}/xfce4/xfconf-%{apiver}
 %{_libdir}/libxfconf-%{apiver}.so
 %{_libdir}/pkgconfig/libxfconf-%{apiver}.pc
 
 %files -n perl-%{name}
-%defattr(-,root,root)
 %dir %{perl_sitearch}/Xfce4
 %dir %{perl_sitearch}/Xfce4/Xfconf
 %dir %{perl_sitearch}/Xfce4/Xfconf/Install
