@@ -67,7 +67,7 @@ Perl bindings for %{name}.
 %configure2_5x	\
 	--disable-static \
 	--disable-checks \
-	--enable-gtk-doc \
+	--disable-gtk-doc \
 	--enable-perl-bindings
 
 %make
