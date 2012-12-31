@@ -7,13 +7,13 @@
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
 Version:	4.10.0
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
 Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
-BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.10.0
-BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	libxfce4util-devel >= 4.10.0
+BuildRequires:	glib2-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	perl(ExtUtils::Depends)
 BuildRequires:	perl(ExtUtils::PkgConfig)
@@ -23,6 +23,7 @@ BuildRequires:	perl(Glib)
 BuildRequires:	perl-devel
 BuildRequires:	gettext
 Requires:	dbus-x11
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Xfconf is a hierarchical (tree-like) configuration
@@ -31,7 +32,7 @@ system for the Xfce graphical desktop environment.
 %package -n %{libname}
 Summary:	Main library for xfconf
 Group:		System/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Obsoletes:	%{mklibname %{name} 0} < 4.5.92
 
 %description -n %{libname}
@@ -41,9 +42,9 @@ storage system for Xfce.
 %package -n %{develname}
 Summary:	Development files for xfconf
 Group:		Development/C++
-Requires:	%{libname} = %{version}
-Provides:	%{name}-devel = %{EVRD}
-Provides:	lib%{name}-devel = %{EVRD}
+Requires:	%{libname} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	dbus-glib-devel
 Requires:	dbus-devel
 Requires:	glib2-devel
@@ -54,7 +55,7 @@ Development files and headers for xfconf.
 %package -n perl-%{name}
 Summary:	Perl bindings for %{name}
 Group:		Development/Perl
-Requires:	%{libname} = %{version}
+Requires:	%{libname} = %{version}-%{release}
 
 %description -n perl-%{name}
 Perl bindings for %{name}.
@@ -110,7 +111,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
 %{perl_sitearch}/Xfce4/Xfconf/Install/*
 %{perl_sitearch}/auto/Xfce4/Xfconf/*.so
 %{_mandir}/man3/Xfce4::Xfconf.3pm.*
-
 
 %changelog
 * Mon Apr 30 2012 Tomasz Pawel Gajc <tpg@mandriva.org> 4.10.0-1
