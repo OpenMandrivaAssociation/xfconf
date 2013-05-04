@@ -7,7 +7,7 @@
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
 Version:	4.10.0
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
