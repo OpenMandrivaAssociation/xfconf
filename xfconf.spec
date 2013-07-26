@@ -7,14 +7,14 @@
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
 Version:	4.10.0
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
 Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
-BuildRequires:	libxfce4util-devel >= 4.10.0
-BuildRequires:	glib2-devel
-BuildRequires:	dbus-glib-devel
+BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.10.0
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	perl(ExtUtils::Depends)
 BuildRequires:	perl(ExtUtils::PkgConfig)
 BuildRequires:	perl(ExtUtils::MakeMaker)
@@ -23,7 +23,6 @@ BuildRequires:	perl(Glib)
 BuildRequires:	perl-devel
 BuildRequires:	gettext
 Requires:	dbus-x11
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Xfconf is a hierarchical (tree-like) configuration
@@ -45,9 +44,6 @@ Group:		Development/C++
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
-Requires:	dbus-glib-devel
-Requires:	dbus-devel
-Requires:	glib2-devel
 
 %description -n %{develname}
 Development files and headers for xfconf.
