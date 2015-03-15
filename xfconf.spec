@@ -6,14 +6,14 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.10.0
-Release:	6
+Version:	4.12.0
+Release:	0.1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
 Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
 Source1:	xfconf.rpmlintrc
-BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.11.0
+BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.12.0
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	perl(ExtUtils::Depends)
@@ -61,7 +61,7 @@ Perl bindings for %{name}.
 %setup -q
 
 %build
-%configure2_5x	\
+%configure2_5x \
 	--disable-static \
 	--disable-checks \
 	--disable-gtk-doc \
