@@ -3,11 +3,12 @@
 %define apiver 0
 %define libname %mklibname %{name} %{apiver} %{major}
 %define develname %mklibname %{name} -d
+%define _disable_rebuild_configure 1
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.12.0
-Release:	7
+Version:	4.12.1
+Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
