@@ -14,7 +14,7 @@ Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
 Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
 Source1:	xfconf.rpmlintrc
-BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.12.0
+BuildRequires:	pkgconfig(libxfce4util-1.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	perl(ExtUtils::Depends)
@@ -30,6 +30,16 @@ Requires:	dbus-x11
 Xfconf is a hierarchical (tree-like) configuration
 system for the Xfce graphical desktop environment.
 
+%files -f %{name}.lang
+%doc AUTHORS NEWS ChangeLog
+%dir %{_sysconfdir}/xdg/xfce4/xfconf
+%{_bindir}/xfconf-query
+%{_libdir}/xfce4/%{name}/xfconfd
+%{_datadir}/dbus-1/services/org.xfce.Xfconf.service
+%{_datadir}/gtk-doc/html/xfconf
+
+#---------------------------------------------------------------------------
+
 %package -n %{libname}
 Summary:	Main library for xfconf
 Group:		System/Libraries
@@ -39,6 +49,11 @@ Obsoletes:	%{mklibname %{name} 0} < 4.5.92
 %description -n %{libname}
 Main library for the xfconf, a configuration
 storage system for Xfce.
+
+%files -n %{libname}
+%{_libdir}/*xfconf-%{apiver}.so.%{major}*
+
+#---------------------------------------------------------------------------
 
 %package -n %{develname}
 Summary:	Development files for xfconf
@@ -50,6 +65,13 @@ Provides:	lib%{name}-devel = %{version}-%{release}
 %description -n %{develname}
 Development files and headers for xfconf.
 
+%files -n %{develname}
+%{_includedir}/xfce4/xfconf-%{apiver}
+%{_libdir}/libxfconf-%{apiver}.so
+%{_libdir}/pkgconfig/libxfconf-%{apiver}.pc
+
+#---------------------------------------------------------------------------
+
 %package -n perl-%{name}
 Summary:	Perl bindings for %{name}
 Group:		Development/Perl
@@ -57,48 +79,6 @@ Requires:	%{libname} = %{version}-%{release}
 
 %description -n perl-%{name}
 Perl bindings for %{name}.
-
-%prep
-%setup -q
-
-%build
-%configure \
-	--disable-static \
-	--disable-checks \
-	--disable-gtk-doc \
-	--enable-perl-bindings
-
-%make
-
-%install
-
-%makeinstall_std
-
-mkdir -p %{buildroot}%{_mandir}/man3
-
-mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_mandir}/man3
-
-# dummy
-mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
-
-
-%find_lang %{name} %{name}.lang
-
-%files -f %{name}.lang
-%doc AUTHORS NEWS ChangeLog
-%dir %{_sysconfdir}/xdg/xfce4/xfconf
-%{_bindir}/xfconf-query
-%{_libdir}/xfce4/%{name}/xfconfd
-%{_datadir}/dbus-1/services/org.xfce.Xfconf.service
-%{_datadir}/gtk-doc/html/xfconf
-
-%files -n %{libname}
-%{_libdir}/*xfconf-%{apiver}.so.%{major}*
-
-%files -n %{develname}
-%{_includedir}/xfce4/xfconf-%{apiver}
-%{_libdir}/libxfconf-%{apiver}.so
-%{_libdir}/pkgconfig/libxfconf-%{apiver}.pc
 
 %files -n perl-%{name}
 %dir %{perl_sitearch}/Xfce4
@@ -109,3 +89,27 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
 %{perl_sitearch}/Xfce4/Xfconf/Install/*
 %{perl_sitearch}/auto/Xfce4/Xfconf/*.so
 %{_mandir}/man3/Xfce4::Xfconf.3pm.*
+
+#---------------------------------------------------------------------------
+
+%prep
+%setup -q
+%autopatch -p1
+
+%build
+%xdt_autogen
+%configure \
+	--enable-perl-bindings \
+%make_build
+
+%install
+%make_install
+
+install -dm 0755 %{buildroot}%{_mandir}/man3
+mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_mandir}/man3
+
+# dummy
+mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
+
+# locales
+%find_lang %{name} %{name}.lang
