@@ -101,6 +101,7 @@ Perl bindings for %{name}.
 %xdt_autogen
 %configure \
 	--enable-perl-bindings \
+	%{nil}
 %make_build
 
 %install
