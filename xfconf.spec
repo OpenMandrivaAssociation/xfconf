@@ -24,6 +24,7 @@ BuildRequires:	perl(Glib::MakeHelper)
 BuildRequires:	perl(Glib)
 BuildRequires:	perl-devel
 BuildRequires:	gettext
+BuildRequires:  gtk-doc
 Requires:	dbus-x11
 
 %description
