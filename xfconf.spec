@@ -5,6 +5,9 @@
 %define develname %mklibname %{name} -d
 %define _disable_rebuild_configure 1
 
+%bcond_with gsettings
+%bcond_with perl
+
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
 Version:	4.12.1
@@ -14,17 +17,20 @@ Group:		Graphical desktop/Xfce
 Url:		http://www.xfce.org
 Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
 Source1:	xfconf.rpmlintrc
+BuildRequires:	gettext
+BuildRequires:  gtk-doc
+BuildRequires:  gtk-doc-mkpdf
 BuildRequires:	pkgconfig(libxfce4util-1.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(dbus-glib-1)
+%if %{with perl_bindings}
+BuildRequires:	perl-devel
 BuildRequires:	perl(ExtUtils::Depends)
 BuildRequires:	perl(ExtUtils::PkgConfig)
 BuildRequires:	perl(ExtUtils::MakeMaker)
-BuildRequires:	perl(Glib::MakeHelper)
 BuildRequires:	perl(Glib)
-BuildRequires:	perl-devel
-BuildRequires:	gettext
-BuildRequires:  gtk-doc
+BuildRequires:	perl(Glib::MakeHelper)
+%endif
 Requires:	dbus-x11
 
 %description
@@ -36,6 +42,9 @@ system for the Xfce graphical desktop environment.
 %dir %{_sysconfdir}/xdg/xfce4/xfconf
 %{_bindir}/xfconf-query
 %{_libdir}/xfce4/%{name}/xfconfd
+%if %{with gsettings}
+%{_libdir}/gio/modules/libxfconfgsettingsbackend.so
+%endif
 %{_datadir}/dbus-1/services/org.xfce.Xfconf.service
 %{_datadir}/gtk-doc/html/xfconf
 
@@ -73,6 +82,7 @@ Development files and headers for xfconf.
 
 #---------------------------------------------------------------------------
 
+%if %{with perl}
 %package -n perl-%{name}
 Summary:	Perl bindings for %{name}
 Group:		Development/Perl
@@ -83,6 +93,7 @@ Perl bindings for %{name}.
 
 %files -n perl-%{name}
 %dir %{perl_sitearch}/Xfce4
+
 %dir %{perl_sitearch}/Xfce4/Xfconf
 %dir %{perl_sitearch}/Xfce4/Xfconf/Install
 %dir %{perl_sitearch}/auto/Xfce4/Xfconf
@@ -90,6 +101,7 @@ Perl bindings for %{name}.
 %{perl_sitearch}/Xfce4/Xfconf/Install/*
 %{perl_sitearch}/auto/Xfce4/Xfconf/*.so
 %{_mandir}/man3/Xfce4::Xfconf.3pm.*
+%endif
 
 #---------------------------------------------------------------------------
 
@@ -100,18 +112,30 @@ Perl bindings for %{name}.
 %build
 %xdt_autogen
 %configure \
-	--enable-perl-bindings \
+	%{?with_gsettings:--enable-gsettings-backend} \
+	%{!?with_perl:--disable-perl-bindings} \
 	%{nil}
 %make_build
 
 %install
 %make_install
 
+# remove unwanted
+find %{buildroot} -name "*.la" -delete
+
+# xdg
+install -dm 0755 %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
+
+%if %{with perl}
+# fix permissions
+chmod 755 %{buildroot}%{perl_vendorarch}/auto/Xfce4/Xfconf/Xfconf.so
+chrpath -d %{buildroot}%{perl_vendorarch}/auto/Xfce4/Xfconf/Xfconf.so
+
+# fix man path
 install -dm 0755 %{buildroot}%{_mandir}/man3
 mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_mandir}/man3
-
-# dummy
-mkdir -p %{buildroot}%{_sysconfdir}/xdg/xfce4/xfconf
+%endif
 
 # locales
 %find_lang %{name} %{name}.lang
+
