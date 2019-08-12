@@ -1,5 +1,5 @@
 %define url_ver %(echo %{version} | cut -d. -f1,2)
-%define major 2
+%define major 3
 %define apiver 0
 %define libname %mklibname %{name} %{apiver} %{major}
 %define develname %mklibname %{name} -d
@@ -10,7 +10,7 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.12.1
+Version:	4.14.1
 Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce

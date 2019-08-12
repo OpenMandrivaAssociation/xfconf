@@ -1,4 +1,2 @@
-removed_sources:
-  xfconf-4.12.0.tar.bz2: 453b1589f242f293c193b0432accd8888964c3ab
 sources:
-  xfconf-4.12.1.tar.bz2: 18741118e98f7a4ea0328cd6f00752ca83d3ec14
+  xfconf-4.14.1.tar.bz2: edfa24dd862bc39d6002f40f6b9b3974c59fa250
