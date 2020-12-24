@@ -3,6 +3,8 @@
 %define apiver 0
 %define libname %mklibname %{name} %{apiver} %{major}
 %define develname %mklibname %{name} -d
+%define girname		%mklibname %{name}-gir %{apiver}
+
 %define _disable_rebuild_configure 1
 
 %bcond_without gsettings
@@ -86,6 +88,20 @@ Development files and headers for xfconf.
 %{_includedir}/xfce4/xfconf-%{apiver}
 %{_libdir}/libxfconf-%{apiver}.so
 %{_libdir}/pkgconfig/libxfconf-%{apiver}.pc
+%{_datadir}/vala/vapi/libxfconf-0.{deps,vapi}
+%{_datadir}/gir-1.0/Xfconf-%{apiver}.gir
+
+#---------------------------------------------------------------------------
+%package -n %{girname}
+Summary:	GObject Introspection interface description for Xfconf
+Group:		System/Libraries
+Requires:	%{libname} = %{version}-%{release}
+
+%description -n %{girname}
+GObject Introspection interface description for Xfconf.
+
+%files -n %{girname}
+%{_libdir}/girepository-1.0/Xfconf-%{api}.typelib
 
 #---------------------------------------------------------------------------
 
