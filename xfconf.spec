@@ -117,7 +117,6 @@ Perl bindings for %{name}.
 %autopatch -p1
 
 %build
-%xdt_autogen
 %configure \
 	%{?with_gsettings:--enable-gsettings-backend} \
 	%{!?with_perl:--disable-perl-bindings} \
