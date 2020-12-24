@@ -101,7 +101,7 @@ Requires:	%{libname} = %{version}-%{release}
 GObject Introspection interface description for Xfconf.
 
 %files -n %{girname}
-%{_libdir}/girepository-1.0/Xfconf-%{api}.typelib
+%{_libdir}/girepository-1.0/Xfconf-%{apiver}.typelib
 
 #---------------------------------------------------------------------------
 
