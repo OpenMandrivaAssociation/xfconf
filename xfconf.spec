@@ -3,14 +3,16 @@
 %define apiver 0
 %define libname %mklibname %{name} %{apiver} %{major}
 %define develname %mklibname %{name} -d
+%define girname		%mklibname %{name}-gir %{apiver}
+
 %define _disable_rebuild_configure 1
 
-%bcond_with gsettings
+%bcond_without gsettings
 %bcond_with perl
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.14.3
+Version:	4.16.0
 Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
@@ -18,11 +20,17 @@ Url:		http://www.xfce.org
 Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
 Source1:	xfconf.rpmlintrc
 BuildRequires:	gettext
+BuildRequires:	intltool
 BuildRequires:  gtk-doc
 BuildRequires:  gtk-doc-mkpdf
 BuildRequires:	pkgconfig(libxfce4util-1.0)
 BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	xfce4-dev-tools
+BuildRequires:	pkgconfig(vapigen)
+BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(dbus-glib-1)
+BuildRequires:	pkgconfig(gobject-2.0)
+BuildRequires:	pkgconfig(gobject-introspection-1.0)
 %if %{with perl_bindings}
 BuildRequires:	perl-devel
 BuildRequires:	perl(ExtUtils::Depends)
@@ -47,6 +55,7 @@ system for the Xfce graphical desktop environment.
 %endif
 %{_datadir}/dbus-1/services/org.xfce.Xfconf.service
 %{_datadir}/gtk-doc/html/xfconf
+%{_datadir}/bash-completion/completions/xfconf-query
 
 #---------------------------------------------------------------------------
 
@@ -79,6 +88,20 @@ Development files and headers for xfconf.
 %{_includedir}/xfce4/xfconf-%{apiver}
 %{_libdir}/libxfconf-%{apiver}.so
 %{_libdir}/pkgconfig/libxfconf-%{apiver}.pc
+%{_datadir}/vala/vapi/libxfconf-0.{deps,vapi}
+%{_datadir}/gir-1.0/Xfconf-%{apiver}.gir
+
+#---------------------------------------------------------------------------
+%package -n %{girname}
+Summary:	GObject Introspection interface description for Xfconf
+Group:		System/Libraries
+Requires:	%{libname} = %{version}-%{release}
+
+%description -n %{girname}
+GObject Introspection interface description for Xfconf.
+
+%files -n %{girname}
+%{_libdir}/girepository-1.0/Xfconf-%{apiver}.typelib
 
 #---------------------------------------------------------------------------
 
@@ -110,7 +133,6 @@ Perl bindings for %{name}.
 %autopatch -p1
 
 %build
-%xdt_autogen
 %configure \
 	%{?with_gsettings:--enable-gsettings-backend} \
 	%{!?with_perl:--disable-perl-bindings} \
