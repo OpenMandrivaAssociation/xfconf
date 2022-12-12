@@ -12,7 +12,7 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.16.0
+Version:	4.17.2
 Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
@@ -23,7 +23,7 @@ BuildRequires:	gettext
 BuildRequires:	intltool
 BuildRequires:  gtk-doc
 BuildRequires:  gtk-doc-mkpdf
-BuildRequires:	pkgconfig(libxfce4util-1.0)
+BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.17.3
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	xfce4-dev-tools
 BuildRequires:	pkgconfig(vapigen)
