@@ -16,7 +16,7 @@ Version:	4.18.3
 Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
-Url:		http://www.xfce.org
+Url:		https://www.xfce.org
 Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
 Source1:	xfconf.rpmlintrc
 BuildRequires:	gettext
