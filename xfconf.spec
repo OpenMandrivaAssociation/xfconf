@@ -1,10 +1,11 @@
 %define url_ver %(echo %{version} | cut -d. -f1,2)
 %define major 3
 %define apiver 0
-%define libname %mklibname %{name} %{apiver} %{major}
+%define libname %mklibname %{name}
+%define oldlibname %mklibname %{name} 0 3
 %define develname %mklibname %{name} -d
-%define girname		%mklibname %{name}-gir %{apiver}
-
+%define girname	%mklibname %{name}-gir
+%define oldgirname %mklibname %{name}-gir 0
 %define _disable_rebuild_configure 1
 
 %bcond_without gsettings
@@ -12,20 +13,20 @@
 
 Summary:	A configuration storage system for Xfce
 Name:		xfconf
-Version:	4.18.3
+Version:	4.20.0
 Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Xfce
 Url:		https://www.xfce.org
-Source0:	http://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
+Source0:	https://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
 Source1:	xfconf.rpmlintrc
 BuildRequires:	gettext
 BuildRequires:	intltool
 BuildRequires:  gtk-doc
 BuildRequires:  gtk-doc-mkpdf
-BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.17.3
+BuildRequires:	pkgconfig(libxfce4util-1.0) >= 4.20.0
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	xfce4-dev-tools
+BuildRequires:	xfce4-dev-tools >= 4.20.0
 BuildRequires:	pkgconfig(vapigen)
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(dbus-glib-1)
@@ -53,6 +54,7 @@ system for the Xfce graphical desktop environment.
 %if %{with gsettings}
 %{_libdir}/gio/modules/libxfconfgsettingsbackend.so
 %endif
+%{_userunitdir}/xfconfd.service
 %{_datadir}/dbus-1/services/org.xfce.Xfconf.service
 %{_datadir}/gtk-doc/html/xfconf
 %{_datadir}/bash-completion/completions/xfconf-query
@@ -64,6 +66,7 @@ Summary:	Main library for xfconf
 Group:		System/Libraries
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	%{mklibname %{name} 0} < 4.5.92
+%rename %{oldlibname}
 
 %description -n %{libname}
 Main library for the xfconf, a configuration
@@ -96,6 +99,7 @@ Development files and headers for xfconf.
 Summary:	GObject Introspection interface description for Xfconf
 Group:		System/Libraries
 Requires:	%{libname} = %{version}-%{release}
+%rename %{oldgirname}
 
 %description -n %{girname}
 GObject Introspection interface description for Xfconf.
@@ -129,14 +133,12 @@ Perl bindings for %{name}.
 #---------------------------------------------------------------------------
 
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -p1
 
 %build
 %configure \
 	%{?with_gsettings:--enable-gsettings-backend} \
-	%{!?with_perl:--disable-perl-bindings} \
-	%{nil}
+	%{!?with_perl:--disable-perl-bindings}
 %make_build
 
 %install
@@ -160,4 +162,3 @@ mv -f %{buildroot}/usr/local/share/man/man3/Xfce4::Xfconf.3pm %{buildroot}%{_man
 
 # locales
 %find_lang %{name} %{name}.lang
-
