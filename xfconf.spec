@@ -20,6 +20,11 @@ Group:		Graphical desktop/Xfce
 Url:		https://www.xfce.org
 Source0:	https://archive.xfce.org/src/xfce/%{name}/%{url_ver}/%{name}-%{version}.tar.bz2
 Source1:	xfconf.rpmlintrc
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	gettext
 BuildRequires:	intltool
 BuildRequires:  gtk-doc
